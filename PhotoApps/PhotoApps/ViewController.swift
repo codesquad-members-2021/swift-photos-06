@@ -48,7 +48,8 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
+        let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! MyCustomViewCell
+        
         newCell.backgroundColor = randomColorCollection[indexPath.row]
         return newCell
     }
