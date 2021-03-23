@@ -96,20 +96,44 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController : PHPhotoLibraryChangeObserver {
     
-    
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let asset = allPhotoAssets, let changes = changeInstance.changeDetails(for: asset) else { return }
-        
-        self.allPhotoAssets = changes.fetchResultAfterChanges
-        self.numberOfItems = self.allPhotoAssets?.count ?? 0
-        
-        OperationQueue.main.addOperation {
-            self.collectionView.reloadData()
-        }
-    }
-    
     func registerPhotoLibrary() {
         PHPhotoLibrary.shared().register(self)
     }
     
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        guard let asset = allPhotoAssets,
+              let changes = changeInstance.changeDetails(for: asset) else { return }
+        
+        OperationQueue.main.addOperation {
+            
+            self.allPhotoAssets = changes.fetchResultAfterChanges
+            self.numberOfItems = self.allPhotoAssets?.count ?? 0
+        
+            guard changes.hasIncrementalChanges else { //아주 큰 변화가 있을 시엔 전체를 reload해야 함
+                self.collectionView.reloadData()
+                return
+            }
+            
+            self.collectionView.performBatchUpdates({
+                
+                if let removed = changes.removedIndexes, removed.count > 0 {
+                    self.collectionView.deleteItems(at: removed.map { IndexPath(item: $0, section: 0) })
+                }
+                
+                if let inserted = changes.insertedIndexes, inserted.count > 0 {
+                    self.collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section: 0)})
+                }
+                
+                if let changed = changes.changedIndexes, changed.count > 0 {
+                    self.collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section: 0) })
+                }
+                
+                changes.enumerateMoves { (fromIdx, toIdx) in
+                    self.collectionView.moveItem(at: IndexPath(item: fromIdx, section: 0),
+                                                 to: IndexPath(item: toIdx, section: 0))
+                }
+            })
+        }
+    }
 }
