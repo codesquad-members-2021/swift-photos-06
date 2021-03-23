@@ -19,17 +19,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         randomColorCollection = generateRandomColors(count: numberOfItems)
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-        self.allPhotoAssets = PHAsset.fetchAssets(with: .none)
+        let targetAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: .none)
+        
+        let album = targetAlbums.firstObject ?? PHAssetCollection()
+
+        self.allPhotoAssets = PHAsset.fetchAssets(in: album, options: .none)
         self.numberOfItems = self.allPhotoAssets?.count ?? 0
         
         self.collectionView.reloadData()
         
     }
-    
+
     private func generateRandomColors(count: Int) -> [UIColor] {
         var colorCollection = [UIColor]()
         
