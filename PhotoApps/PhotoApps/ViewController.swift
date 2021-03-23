@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-        let targetAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: .none)
+        let targetAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: .none)
         
         let album = targetAlbums.firstObject ?? PHAssetCollection()
 
