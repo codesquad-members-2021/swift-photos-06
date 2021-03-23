@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let numberOfItems = 40
-    private let cellSizeUnit: CGFloat = 80
+    private let cellSizeUnit: CGFloat = 100
     private var randomColorCollection = [UIColor]()
     
     override func viewDidLoad() {
