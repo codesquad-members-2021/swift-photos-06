@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  PhotoApps
 //
-//  Created by jinseo park on 3/22/21.
+//  Created by lollo, jackson on 3/22/21.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     private let cellSizeUnit: CGFloat = 100
     private var randomColorCollection = [UIColor]()
     private var allPhotoAssets : PHFetchResult<PHAsset>?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         self.allPhotoAssets = PHAsset.fetchAssets(in: album, options: .none)
         self.numberOfItems = self.allPhotoAssets?.count ?? 0
         
+        registerPhotoLibrary()
+                
         self.collectionView.reloadData()
         
     }
@@ -57,15 +59,13 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! MyCustomViewCell
-        
-//        newCell.backgroundColor = randomColorCollection[indexPath.row]
         
         if let asset = allPhotoAssets?[numberOfItems - indexPath.row - 1] {
             newCell.photoCellImageView.image = getAssetThumbnail(asset: asset)
@@ -75,7 +75,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func getAssetThumbnail(asset: PHAsset) -> UIImage {
-        let manager = PHImageManager()
+        let manager =  PHCachingImageManager() //PHImageManager()
         
         let option = PHImageRequestOptions()
         option.isSynchronous = true
@@ -83,7 +83,7 @@ extension ViewController: UICollectionViewDataSource {
         
         var thumbnail = UIImage()
         let targetSize = CGSize(width: cellSizeUnit, height: cellSizeUnit)
-        
+                
         manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: option) { (result, _) in
             if let result = result {
                 thumbnail = result
@@ -91,4 +91,25 @@ extension ViewController: UICollectionViewDataSource {
         }
         return thumbnail
     }
+}
+
+
+extension ViewController : PHPhotoLibraryChangeObserver {
+    
+    
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let asset = allPhotoAssets, let changes = changeInstance.changeDetails(for: asset) else { return }
+        
+        self.allPhotoAssets = changes.fetchResultAfterChanges
+        self.numberOfItems = self.allPhotoAssets?.count ?? 0
+        
+        OperationQueue.main.addOperation {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func registerPhotoLibrary() {
+        PHPhotoLibrary.shared().register(self)
+    }
+    
 }
