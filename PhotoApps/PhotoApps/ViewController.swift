@@ -70,10 +70,15 @@ extension ViewController: UICollectionViewDataSource {
     
     func getAssetThumbnail(asset: PHAsset) -> UIImage {
         let manager = PHImageManager()
+        
         let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
         option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize.init(width: cellSizeUnit, height: cellSizeUnit), contentMode: .aspectFit, options: .none) { (result, _ ) in
+        option.resizeMode = .exact
+        
+        var thumbnail = UIImage()
+        let targetSize = CGSize(width: cellSizeUnit, height: cellSizeUnit)
+        
+        manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: option) { (result, _) in
             if let result = result {
                 thumbnail = result
             }
