@@ -18,9 +18,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HIT-Pj-T8G">
-                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hp8-ch-u4T">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hp8-ch-u4T" userLabel="Collection View Flow layout">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -61,7 +61,15 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HIT-Pj-T8G" secondAttribute="bottom" id="qrh-vP-QI1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Photos" id="p3f-Sp-ndB"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Photos" id="p3f-Sp-ndB">
+                        <barButtonItem key="leftBarButtonItem" title="+" width="103.66666666666667" id="yXB-dp-ItR">
+                            <connections>
+                                <action selector="addBtnTouched:" destination="BYZ-38-t0r" id="gZ5-MD-nSh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="HIT-Pj-T8G" id="IuO-yg-77e"/>
                     </connections>
@@ -69,6 +77,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="687.69230769230762" y="125.82938388625591"/>
+        </scene>
+        <!--Doodles-->
+        <scene sceneID="Ogc-Qm-1OB">
+            <objects>
+                <viewController storyboardIdentifier="DoodleViewControllerID" id="xR3-xq-BMw" customClass="DoodleViewController" customModule="PhotoApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kSO-Nj-rUR">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Otl-86-Re4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Doodles" id="3Rr-ac-73B"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="das-Rs-3GC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1440" y="126"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d5k-dB-2LY">
@@ -80,6 +104,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bde-7B-xCI">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="zbp-0A-Zgc"/>
                     </connections>

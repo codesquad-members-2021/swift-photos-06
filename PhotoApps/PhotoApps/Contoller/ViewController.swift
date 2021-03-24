@@ -11,13 +11,12 @@ import Photos
 class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     let phAsset = MyPHAseet()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+                
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
@@ -26,6 +25,15 @@ class ViewController: UIViewController {
         
         registerPhotoLibrary()
     }
+    
+    
+    @IBAction func addBtnTouched(_ sender: Any) {
+        /*코드로 네비게이션 컨트롤러를 이용하여 DoodleViewController로 Modal하기.*/
+        let toDoodleVC = UINavigationController(rootViewController: DoodleViewController())
+        present(toDoodleVC, animated: true)
+        
+    }
+    
     
 }
 
