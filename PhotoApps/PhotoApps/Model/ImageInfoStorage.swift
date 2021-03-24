@@ -7,16 +7,17 @@
 
 import Foundation
 
+///역할: json 파일로부터 이미지 생성에 필요한 정보를 파싱하고 저장
 class ImageInfoStorage {
     
     private var jsonTitle: String
     private var jsonData: [[String: Any]]?
-    private(set) var infos: [ImageInfo]
+    private var infos: [ImageInfo]
     
-    struct ImageInfo {
-        private let title: String
-        private let imageURL: String
-        private let date: Date
+    private struct ImageInfo {
+        let title: String
+        let imageURL: String
+        let date: Date
         
         init(title: String, imageURL: String, date: Date) {
             self.title = title
@@ -36,6 +37,17 @@ class ImageInfoStorage {
         self.infos = []
         getJsonData()
         configureImageInfos()
+    }
+    
+    func imageURLs() -> [URL] {
+        var URLs = [URL]()
+        
+        infos.forEach { (info) in
+            if let URL = URL(string: info.imageURL) {
+                URLs.append(URL)
+            }
+        }
+        return URLs
     }
     
     private func getJsonData() {
