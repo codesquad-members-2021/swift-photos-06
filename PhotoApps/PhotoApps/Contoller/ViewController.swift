@@ -12,51 +12,45 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private let cellSize = CGSize(width: 100, height: 100)
-    private var photoAssets : PHFetchResult<PHAsset>?
-    private var cellCount: Int!
-
+    let phAsset = MyPHAseet()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-        configurePhotoAssets()
-        updateCellCount()
+        phAsset.configurePhotoAssets()
+        phAsset.updateCellCount()
         
         registerPhotoLibrary()
     }
     
-    private func configurePhotoAssets() {
-        let smartAlbumCollection = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: .none)
-        let allContents = smartAlbumCollection.firstObject ?? PHAssetCollection()
-        photoAssets = PHAsset.fetchAssets(in: allContents, options: .none)
-    }
-    
-    private func updateCellCount() {
-        cellCount = photoAssets?.count ?? 0
-    }
 }
+
+/* 위에서 cellSize를 let으로 설정했는데 이 함수를 쓰는 이유를 모르겠다. 질문하기*/
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return cellSize
+        return phAsset.cellSize
+        
     }
+    
 }
 
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellCount
+        return phAsset.cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! MyCustomViewCell
+        let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoViewCell
         
-        let photoIdxToShow = cellCount - indexPath.row - 1 //최신 항목부터 표시
+        let photoIdxToShow = phAsset.cellCount - indexPath.row - 1 //최신 항목부터 표시
         
-        if let asset = photoAssets?[photoIdxToShow] {
+        if let asset = phAsset.photoAssets?[photoIdxToShow] {
             newCell.photoCellImageView.image = getAssetThumbnail(asset: asset)
         }
         
@@ -72,7 +66,7 @@ extension ViewController: UICollectionViewDataSource {
         
         var thumbnail = UIImage()
                 
-        manager.requestImage(for: asset, targetSize: cellSize, contentMode: .aspectFill, options: option) { (result, _) in
+        manager.requestImage(for: asset, targetSize: phAsset.cellSize, contentMode: .aspectFill, options: option) { (result, _) in
             if let result = result {
                 thumbnail = result
             }
@@ -89,13 +83,13 @@ extension ViewController : PHPhotoLibraryChangeObserver {
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
-        guard let asset = photoAssets,
+        guard let asset = phAsset.photoAssets,
               let changes = changeInstance.changeDetails(for: asset) else { return }
         
         OperationQueue.main.addOperation {
-            
-            self.photoAssets = changes.fetchResultAfterChanges
-            self.updateCellCount()
+        
+            self.phAsset.updatetPhtoAssets(updatedPhotoAssets: changes.fetchResultAfterChanges)
+            self.phAsset.updateCellCount()
         
             guard changes.hasIncrementalChanges else { //아주 큰 변화가 있을 시엔 전체를 reload해야 함
                 self.collectionView.reloadData()
