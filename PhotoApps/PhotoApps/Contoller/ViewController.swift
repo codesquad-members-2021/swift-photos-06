@@ -12,51 +12,24 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
 
-    let phAsset = MyPHAseet()
-    let cellID = "photoCell"
-//    private let imageManager = ImageManager(jsonTitle: "doodle")
+    private let phAsset = MyPHAseet()
+    private let cellID = "photoCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.collectionView.delegate = self
+        
         self.collectionView.dataSource = self
         
         phAsset.configurePhotoAssets()
         phAsset.updateCellCount()
         
         registerPhotoLibrary()
-        
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(didImageDownloadDone(_:)),
-//                                               name: ImageManager.NotiKeys.imageDownloadDone,
-//                                               object: imageManager)
-    }
-    
-    @objc func didImageDownloadDone(_ notification: Notification) {
-//        if let targetIdx = notification.userInfo?["index"] as? Int {
-//            OperationQueue.main.addOperation {
-//                self.collectionView.reloadItems(at: [IndexPath(item: targetIdx, section: 0)])
-//            }
-//        }
     }
     
     @IBAction func addBtnTouched(_ sender: Any) {
         /*코드로 네비게이션 컨트롤러를 이용하여 DoodleViewController로 Modal하기.*/
         let toDoodleVC = UINavigationController(rootViewController: DoodleViewController())
-        present(toDoodleVC, animated: false)
-        
-//        let toDoodleVC = self.storyboard!.instantiateViewController(identifier: "DoodleViewController") as DoodleViewController
-//        self.navigationController?.pushViewController(toDoodleVC, animated: true)
-        
-        
-    }
-}
-
-/* 위에서 cellSize를 let으로 설정했는데 이 함수를 쓰는 이유를 모르겠다. 질문하기*/
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return phAsset.cellSize
+        present(toDoodleVC, animated: true)
     }
 }
 
@@ -70,7 +43,7 @@ extension ViewController: UICollectionViewDataSource {
         let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoViewCell
         
         let photoIdxToShow = phAsset.cellCount - indexPath.row - 1 //최신 항목부터 표시
-        //print("photoIdxToShow",photoIdxToShow, type(of: photoIdxToShow))
+
         if let asset = phAsset.photoAssets?[photoIdxToShow] {
             newCell.photoCellImageView.image = getAssetThumbnail(asset: asset)
         }
