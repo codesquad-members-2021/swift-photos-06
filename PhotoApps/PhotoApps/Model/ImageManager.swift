@@ -38,8 +38,7 @@ class ImageManager {
     }
     
     func imageForIndex(_ index: Int) -> UIImage {
-        if let image = downloader.getCachedImageFrom(url: imageURLs[index]) { return image } //저장된 이미지가 있는 경우
-        if downloader.getDataTaskFrom(url: imageURLs[index]) != nil { return UIImage() } //시도한 이력은 있지만 이미지를 불러오지 못한 경우
+        if let image = downloader.getCachedImageFrom(url: imageURLs[index]) { return image }
 
         var imageLoaded = UIImage()
         downloader.downloadImage(imageURL: imageURLs[index], 
@@ -56,5 +55,4 @@ class ImageManager {
     func imageCounts() -> Int {
         return imageURLs.count
     }
-    
 }

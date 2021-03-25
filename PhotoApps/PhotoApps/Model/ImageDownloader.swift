@@ -24,7 +24,9 @@ class ImageDownloader {
     func downloadImage(imageURL: URL,
                        completionHandler: @escaping (UIImage) -> Void,
                        placeholderImage: UIImage) {
-
+        
+        guard getDataTaskFrom(url: imageURL) == nil else { return }
+        
         let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
             
             guard error == nil else {
