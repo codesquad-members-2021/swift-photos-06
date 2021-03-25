@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 
     let phAsset = MyPHAseet()
     let cellID = "photoCell"
+//    private let imageManager = ImageManager(jsonTitle: "doodle")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +26,20 @@ class ViewController: UIViewController {
         phAsset.updateCellCount()
         
         registerPhotoLibrary()
+        
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(didImageDownloadDone(_:)),
+//                                               name: ImageManager.NotiKeys.imageDownloadDone,
+//                                               object: imageManager)
     }
     
+    @objc func didImageDownloadDone(_ notification: Notification) {
+//        if let targetIdx = notification.userInfo?["index"] as? Int {
+//            OperationQueue.main.addOperation {
+//                self.collectionView.reloadItems(at: [IndexPath(item: targetIdx, section: 0)])
+//            }
+//        }
+    }
     
     @IBAction func addBtnTouched(_ sender: Any) {
         /*코드로 네비게이션 컨트롤러를 이용하여 DoodleViewController로 Modal하기.*/
@@ -34,8 +47,6 @@ class ViewController: UIViewController {
         present(toDoodleVC, animated: true)
         
     }
-    
-    
 }
 
 /* 위에서 cellSize를 let으로 설정했는데 이 함수를 쓰는 이유를 모르겠다. 질문하기*/
