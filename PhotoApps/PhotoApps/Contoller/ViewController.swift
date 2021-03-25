@@ -44,7 +44,11 @@ class ViewController: UIViewController {
     @IBAction func addBtnTouched(_ sender: Any) {
         /*코드로 네비게이션 컨트롤러를 이용하여 DoodleViewController로 Modal하기.*/
         let toDoodleVC = UINavigationController(rootViewController: DoodleViewController())
-        present(toDoodleVC, animated: true)
+        present(toDoodleVC, animated: false)
+        
+//        let toDoodleVC = self.storyboard!.instantiateViewController(identifier: "DoodleViewController") as DoodleViewController
+//        self.navigationController?.pushViewController(toDoodleVC, animated: true)
+        
         
     }
 }

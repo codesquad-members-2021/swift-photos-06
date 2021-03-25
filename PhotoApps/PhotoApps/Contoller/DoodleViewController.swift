@@ -39,10 +39,11 @@ class DoodleViewController : UIViewController{
         doodlesCollectionView.delegate = self
         doodlesCollectionView.dataSource = self
         
+        
         doodlesCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         doodlesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         doodlesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        doodlesCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.frame.height/2).isActive = true
+        doodlesCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 0).isActive = true
     }
     
     @IBAction func addTapped(){
@@ -54,21 +55,21 @@ class DoodleViewController : UIViewController{
 
 extension DoodleViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width/2.5, height: collectionView.frame.width/2)
+
+        return CGSize(width: 110, height: 50)
     }
 }
 
 extension DoodleViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("imgManager.imageCounts()",imgManager.imageCounts())//103개
         return imgManager.imageCounts()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ImgViewCell
-        let photoIdxToShow = imgManager.imageCounts() - indexPath.row - 1 //최신 항목부터 표시
-        cell.bg.image = imgManager.imageForIndex(photoIdxToShow)
+        cell.bg.image = imgManager.imageForIndex(indexPath.row)
+        cell.backgroundColor = .red
         
         return cell
         

@@ -11,21 +11,24 @@ import UIKit
 
 class ImgViewCell : UICollectionViewCell {
     
+    
+    
+    
     let bg : UIImageView = {
-        let iv = UIImageView()
+        let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 50))
         return iv
     }()
     
     override init(frame : CGRect) {
         super.init(frame: .zero)
         contentView.addSubview(bg)
-        
+
         bg.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        bg.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        bg.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        bg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+//        bg.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+//        bg.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+//        bg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+
         
-        bg.backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
