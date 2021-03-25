@@ -10,10 +10,18 @@ import UIKit
 class DoodleViewController : ViewController {
     
     override func viewDidLoad() {
+//        super.viewDidLoad()
         self.navigationItem.title = "Doodles"
         self.view.backgroundColor = .gray
         
-        /*아직 Img를 가져오는 작업은 하지 못했습니다 ㅜㅜ*/
+      
+        /*Close Btn 생성하기*/
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(addTapped))
+        
+    }
+    
+    @IBAction func addTapped(){
+        dismiss(animated: true, completion: nil)
     }
     
 }
