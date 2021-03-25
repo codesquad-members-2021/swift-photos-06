@@ -78,22 +78,6 @@
             </objects>
             <point key="canvasLocation" x="687.69230769230762" y="125.82938388625591"/>
         </scene>
-        <!--Doodles-->
-        <scene sceneID="Ogc-Qm-1OB">
-            <objects>
-                <viewController storyboardIdentifier="DoodleViewControllerID" id="xR3-xq-BMw" customClass="DoodleViewController" customModule="PhotoApps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kSO-Nj-rUR">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Otl-86-Re4"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Doodles" id="3Rr-ac-73B"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="das-Rs-3GC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1440" y="126"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="d5k-dB-2LY">
             <objects>
