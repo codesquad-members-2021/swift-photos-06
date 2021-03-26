@@ -46,6 +46,7 @@ class ImgViewCell : UICollectionViewCell {
         let menuController = UIMenuController.shared
         
         guard !menuController.isMenuVisible, gestureView.canBecomeFirstResponder else {
+            print("can't become firstResponder \(gestureView.canBecomeFirstResponder)")
             return
         }
         
@@ -53,9 +54,17 @@ class ImgViewCell : UICollectionViewCell {
         
         let save = UIMenuItem(title: "Save", action: #selector(saveImageAtCell))
         menuController.menuItems = [save]
+        print("save: \(save)")
+        print("menuItems: \(menuController.menuItems)")
         
-
-        menuController.showMenu(from: gestureView, rect: gestureView.frame)
+        if let superView = gestureView.superview {
+            menuController.showMenu(from: superView, rect: gestureView.frame)
+            
+            print("menuFrame: \(menuController.menuFrame)") //!!!
+            print("gestureView.frame \(gestureView.frame)")
+            
+        }
+        print("끝")
     }
     
     @objc func saveImageAtCell() {
@@ -64,32 +73,4 @@ class ImgViewCell : UICollectionViewCell {
     }
     
 }
-
-//https://stackoverflow.com/questions/45243947/uilabel-long-press-gesture-for-menu-item-of-uimenucontroller
-//internal func handleLongPressed(_ gesture: UILongPressGestureRecognizer) {
-//        guard let gestureView = gesture.view, let superView = gestureView.superview else {
-//            return
-//        }
-//
-//        let menuController = UIMenuController.shared
-//
-//        guard !menuController.isMenuVisible, gestureView.canBecomeFirstResponder else {
-//            return
-//        }
-//
-//        gestureView.becomeFirstResponder()
-//
-//        menuController.menuItems = [
-//            UIMenuItem(
-//                title: "Custom Item",
-//                action: #selector(handleCustomAction(_:))
-//            ),
-//            UIMenuItem(
-//                title: "Copy",
-//                action: #selector(handleCopyAction(_:))
-//            )
-//        ]
-//
-//        menuController.setTargetRect(gestureView.frame, in: superView)
-//        menuController.setMenuVisible(true, animated: true)
-//    }
+//https://zeddios.tistory.com/607
