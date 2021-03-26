@@ -67,10 +67,7 @@ class DoodleViewController : UIViewController{
         gestureView.becomeFirstResponder()
         
         let cell = gestureView as! ImgViewCell
-        print("image: ",cell.bg.image)
-        
         guard let cellImage = cell.bg.image else { return }
-        
         self.cellImage = cellImage
         
         let save = UIMenuItem(title: "Save", action: #selector(saveImageAtCell))
@@ -83,9 +80,23 @@ class DoodleViewController : UIViewController{
     }
     
     @objc func saveImageAtCell() {
-        //이미지 SAVE 구현하기.
-        print("image: ", cellImage)
-        print("버튼 눌림")
+        
+        if let cellImage = cellImage {
+            UIImageWriteToSavedPhotosAlbum(cellImage, self, #selector(imageSaveAlert(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        
+    }
+    
+    @objc func imageSaveAlert(_ image : UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer){
+        if let error = error {
+            let ac = UIAlertController(title: "저장 실패!", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "네", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "저장 성공!", message: "잘 하셨습니다.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "네", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     

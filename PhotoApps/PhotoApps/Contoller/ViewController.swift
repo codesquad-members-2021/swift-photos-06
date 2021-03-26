@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 
     private let phAsset = MyPHAseet()
     private let cellID = "photoCell"
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
