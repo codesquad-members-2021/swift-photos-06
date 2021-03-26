@@ -26,9 +26,16 @@ class ViewController: UIViewController {
         registerPhotoLibrary()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.collectionView.reloadData()
+    }
+    
     @IBAction func addBtnTouched(_ sender: Any) {
         /*코드로 네비게이션 컨트롤러를 이용하여 DoodleViewController로 Modal하기.*/
         let toDoodleVC = UINavigationController(rootViewController: DoodleViewController())
+        toDoodleVC.modalPresentationStyle = .fullScreen
         present(toDoodleVC, animated: true)
     }
 }
