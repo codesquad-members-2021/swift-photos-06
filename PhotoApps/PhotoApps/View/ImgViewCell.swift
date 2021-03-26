@@ -16,24 +16,51 @@ class ImgViewCell : UICollectionViewCell {
         return iv
     }()
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     override init(frame : CGRect) {
         super.init(frame: .zero)
         contentView.addSubview(bg)
-
+        
         bg.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        
+        /*셀에 추가하는 메소드*/
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UILongPressGestureRecognizer.init(target: self, action: #selector(longTouchedImgViewCell(_:))))
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func enableSaveMenu() {
-        let save = UIMenuItem(title: "Save", action: #selector(longTouchedImgViewCell))
-        UIMenuController.shared.menuItems = [save]
-    }
     
     @objc func longTouchedImgViewCell(_ gesture: UILongPressGestureRecognizer) {
         print("long touched!")
+        
+        guard let gestureView = gesture.view else {
+            return
+        }
+        
+        let menuController = UIMenuController.shared
+        
+        guard !menuController.isMenuVisible, gestureView.canBecomeFirstResponder else {
+            return
+        }
+        
+        gestureView.becomeFirstResponder()
+        
+        let save = UIMenuItem(title: "Save", action: #selector(saveImageAtCell))
+        menuController.menuItems = [save]
+        
+
+        menuController.showMenu(from: gestureView, rect: gestureView.frame)
+    }
+    
+    @objc func saveImageAtCell() {
+        //이미지 SAVE 구현하기.
+        print("버튼 눌림")
     }
     
 }
