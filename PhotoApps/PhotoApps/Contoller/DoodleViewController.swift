@@ -12,6 +12,7 @@ class DoodleViewController : UIViewController{
     private let imgManager = ImageManager(jsonTitle: "doodle")
     private let cellSize = CGSize(width: 110, height: 50)
     private let cellID = "imgCell"
+    private var cellImage: UIImage?
 
     lazy private var doodlesCollectionView : UICollectionView = {
        let layout = UICollectionViewFlowLayout()
@@ -65,6 +66,13 @@ class DoodleViewController : UIViewController{
         
         gestureView.becomeFirstResponder()
         
+        let cell = gestureView as! ImgViewCell
+        print("image: ",cell.bg.image)
+        
+        guard let cellImage = cell.bg.image else { return }
+        
+        self.cellImage = cellImage
+        
         let save = UIMenuItem(title: "Save", action: #selector(saveImageAtCell))
         menuController.menuItems = [save]
         
@@ -76,6 +84,7 @@ class DoodleViewController : UIViewController{
     
     @objc func saveImageAtCell() {
         //이미지 SAVE 구현하기.
+        print("image: ", cellImage)
         print("버튼 눌림")
     }
     
