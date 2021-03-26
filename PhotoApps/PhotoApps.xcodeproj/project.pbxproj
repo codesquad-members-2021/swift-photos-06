@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA48A417260882740086FB9A /* MyCustomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48A416260882740086FB9A /* MyCustomViewCell.swift */; };
+		E4424854260B121B004A04C1 /* ImageInfoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4424853260B121B004A04C1 /* ImageInfoStorage.swift */; };
+		E442485C260B1A3B004A04C1 /* doodle.json in Resources */ = {isa = PBXBuildFile; fileRef = E442485B260B1A3B004A04C1 /* doodle.json */; };
+		E4424864260B2A3F004A04C1 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4424863260B2A3F004A04C1 /* ImageDownloader.swift */; };
+		E442487C260B58E6004A04C1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442487B260B58E6004A04C1 /* ImageManager.swift */; };
+		FA48A417260882740086FB9A /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48A416260882740086FB9A /* PhotoViewCell.swift */; };
+		FA5F06E5260C5738006BA088 /* ImgViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5F06E4260C5738006BA088 /* ImgViewCell.swift */; };
 		FA8BDC1726086C9E00F8ADD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BDC1626086C9E00F8ADD5 /* AppDelegate.swift */; };
 		FA8BDC1926086C9E00F8ADD5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BDC1826086C9E00F8ADD5 /* SceneDelegate.swift */; };
 		FA8BDC1B26086C9E00F8ADD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BDC1A26086C9E00F8ADD5 /* ViewController.swift */; };
@@ -16,6 +21,8 @@
 		FA8BDC2326086C9F00F8ADD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA8BDC2126086C9F00F8ADD5 /* LaunchScreen.storyboard */; };
 		FA8BDC2E26086CA000F8ADD5 /* PhotoAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BDC2D26086CA000F8ADD5 /* PhotoAppsTests.swift */; };
 		FA8BDC3926086CA000F8ADD5 /* PhotoAppsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BDC3826086CA000F8ADD5 /* PhotoAppsUITests.swift */; };
+		FAA0DDAB260B1CE000F9B128 /* MyPHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA0DDAA260B1CE000F9B128 /* MyPHAsset.swift */; };
+		FAB91609260B79BB0085229A /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB91608260B79BB0085229A /* DoodleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FA48A416260882740086FB9A /* MyCustomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomViewCell.swift; sourceTree = "<group>"; };
+		E4424853260B121B004A04C1 /* ImageInfoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoStorage.swift; sourceTree = "<group>"; };
+		E442485B260B1A3B004A04C1 /* doodle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = doodle.json; sourceTree = "<group>"; };
+		E4424863260B2A3F004A04C1 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		E442487B260B58E6004A04C1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		FA48A416260882740086FB9A /* PhotoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewCell.swift; sourceTree = "<group>"; };
+		FA5F06E4260C5738006BA088 /* ImgViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgViewCell.swift; sourceTree = "<group>"; };
 		FA8BDC1326086C9E00F8ADD5 /* PhotoApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8BDC1626086C9E00F8ADD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA8BDC1826086C9E00F8ADD5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +63,8 @@
 		FA8BDC3426086CA000F8ADD5 /* PhotoAppsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoAppsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8BDC3826086CA000F8ADD5 /* PhotoAppsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAppsUITests.swift; sourceTree = "<group>"; };
 		FA8BDC3A26086CA000F8ADD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAA0DDAA260B1CE000F9B128 /* MyPHAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPHAsset.swift; sourceTree = "<group>"; };
+		FAB91608260B79BB0085229A /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +95,7 @@
 		FA8BDC0A26086C9E00F8ADD5 = {
 			isa = PBXGroup;
 			children = (
+				E442485B260B1A3B004A04C1 /* doodle.json */,
 				FA8BDC1526086C9E00F8ADD5 /* PhotoApps */,
 				FA8BDC2C26086CA000F8ADD5 /* PhotoAppsTests */,
 				FA8BDC3726086CA000F8ADD5 /* PhotoAppsUITests */,
@@ -101,14 +116,14 @@
 		FA8BDC1526086C9E00F8ADD5 /* PhotoApps */ = {
 			isa = PBXGroup;
 			children = (
+				FAA0DDB2260B1E9C00F9B128 /* Contoller */,
+				FAA0DD8B260B133800F9B128 /* View */,
+				FAA0DD8A260B133300F9B128 /* Model */,
 				FA8BDC1626086C9E00F8ADD5 /* AppDelegate.swift */,
-				FA8BDC1826086C9E00F8ADD5 /* SceneDelegate.swift */,
-				FA8BDC1A26086C9E00F8ADD5 /* ViewController.swift */,
-				FA8BDC1C26086C9E00F8ADD5 /* Main.storyboard */,
-				FA48A416260882740086FB9A /* MyCustomViewCell.swift */,
 				FA8BDC1F26086C9F00F8ADD5 /* Assets.xcassets */,
-				FA8BDC2126086C9F00F8ADD5 /* LaunchScreen.storyboard */,
 				FA8BDC2426086C9F00F8ADD5 /* Info.plist */,
+				FA8BDC1826086C9E00F8ADD5 /* SceneDelegate.swift */,
+				FA8BDC2126086C9F00F8ADD5 /* LaunchScreen.storyboard */,
 			);
 			path = PhotoApps;
 			sourceTree = "<group>";
@@ -129,6 +144,36 @@
 				FA8BDC3A26086CA000F8ADD5 /* Info.plist */,
 			);
 			path = PhotoAppsUITests;
+			sourceTree = "<group>";
+		};
+		FAA0DD8A260B133300F9B128 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAA0DDAA260B1CE000F9B128 /* MyPHAsset.swift */,
+				E442487B260B58E6004A04C1 /* ImageManager.swift */,
+				E4424863260B2A3F004A04C1 /* ImageDownloader.swift */,
+				E4424853260B121B004A04C1 /* ImageInfoStorage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FAA0DD8B260B133800F9B128 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA48A416260882740086FB9A /* PhotoViewCell.swift */,
+				FA8BDC1C26086C9E00F8ADD5 /* Main.storyboard */,
+				FA5F06E4260C5738006BA088 /* ImgViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAA0DDB2260B1E9C00F9B128 /* Contoller */ = {
+			isa = PBXGroup;
+			children = (
+				FA8BDC1A26086C9E00F8ADD5 /* ViewController.swift */,
+				FAB91608260B79BB0085229A /* DoodleViewController.swift */,
+			);
+			path = Contoller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +281,7 @@
 			files = (
 				FA8BDC2326086C9F00F8ADD5 /* LaunchScreen.storyboard in Resources */,
 				FA8BDC2026086C9F00F8ADD5 /* Assets.xcassets in Resources */,
+				E442485C260B1A3B004A04C1 /* doodle.json in Resources */,
 				FA8BDC1E26086C9E00F8ADD5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,9 +308,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA8BDC1B26086C9E00F8ADD5 /* ViewController.swift in Sources */,
-				FA48A417260882740086FB9A /* MyCustomViewCell.swift in Sources */,
+				FA48A417260882740086FB9A /* PhotoViewCell.swift in Sources */,
+				FA5F06E5260C5738006BA088 /* ImgViewCell.swift in Sources */,
+				E4424854260B121B004A04C1 /* ImageInfoStorage.swift in Sources */,
+				E442487C260B58E6004A04C1 /* ImageManager.swift in Sources */,
+				FA48A417260882740086FB9A /* PhotoViewCell.swift in Sources */,
 				FA8BDC1726086C9E00F8ADD5 /* AppDelegate.swift in Sources */,
+				E4424864260B2A3F004A04C1 /* ImageDownloader.swift in Sources */,
+				FAA0DDAB260B1CE000F9B128 /* MyPHAsset.swift in Sources */,
 				FA8BDC1926086C9E00F8ADD5 /* SceneDelegate.swift in Sources */,
+				FAB91609260B79BB0085229A /* DoodleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

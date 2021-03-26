@@ -7,8 +7,10 @@
 
 import UIKit
 
-class MyCustomViewCell: UICollectionViewCell {
+//UICollectionViewCell도 하나의 뷰이다.
+
+class PhotoViewCell: UICollectionViewCell {
     
     @IBOutlet weak var photoCellImageView: UIImageView!
-    
+        
 }

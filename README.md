@@ -101,3 +101,150 @@
 3. **`performBatchUpdates`를 통한 `CollectionView` 업데이트**
 
    - CollectionView가 제공하는 **insert/delete/reload/move** 기능을 통해 View를 효율적으로 업데이트하였다. 
+
+---
+
+## Step 3 : JSON파일에서 Image를 ControllerView에 보여주기
+
+
+
+#### 2021.03.24
+
+### 구현 내용 📱
+
+- JSON 정보를 가져와 데이터를 분리하고 필요한 이미지 정보를 ControllerView에서 보여준다.
+- Async방식을 이용하여 정보를 가져올 때마다 View에서 해당 이미지를 보여준다. 
+- 코드를 이용하여 + 버튼을 눌렀을 때 Modal로 DoodleView를 보여준다.
+
+
+
+### Today's 학습거리 📚
+
+1. JSON 데이터에 대해 학습 및 필요한 정보를 파싱하는 방법을 이해
+
+   - `JSON` 이란 ?
+
+     - **J**ava**S**cript **O**bject **N**otion 으로 데이터를 전송하고 저장하기에 사용되는 LightWeight DATA 포맷.
+
+     - JavaScript에서 객체를 만들 때 사용되는 표현식.
+
+     - 사람과 기계가 모두 사용하기 편하여서 XML보다 더 많이 사용되는 추세이다.
+
+     - Example of `JSON` vs `XML`
+
+       - `JSON`
+
+       - ```Json
+         ...
+         {
+           "CODESQUAD_IOS_Team6": 
+           {
+             "member": [
+               {
+                 "name": "Lollo",
+                 "like": "Cake"
+               },
+               {
+                 "name": "Jackson",
+                 "like": "Pasta"
+               }
+             ]
+           }
+         }
+         ...
+         ```
+
+         
+
+       - `XML`
+
+       - ```xml
+         ...
+         <CODESQUAD_IOS_Team6>
+           <member>
+             <name>Lollo</name>
+             <like>Cake</like>      
+           </member>
+           <member>
+             <name>Jackson</name>
+             <like>Pasta</like>
+           </member>
+         </CODESQUAD_IOS_Team6>
+         ...
+         ```
+
+     - JSON 정보를 파싱하여서 원하는 정보를 얻는 방법을 학습하고 적용시켜 보았다.
+
+     - ```swift
+       let data = try String(contentsOf: jsonPath).data(using: .utf8)
+       let json = try JSONSerialization.jsonObject(with: data!, options: [[]]) as? [[String: Any]]
+                   self.jsonData = json
+       ```
+
+     - 파싱한 정보를 저장하여 후에 사용될 ImageDownloader에 보낼 수 있는 방법을 공부했다.
+
+       
+
+       
+
+2. `DispatchQueue`에 대해 학습하고 `Sync`와 `Async` 옵션을 이용하여 해당 URL에서 이미지를 다운받는다.
+
+   - DispatchQueue는 `main` Thread 와 `global` Thread가 존재하며 일반적으로 `IOS 화면` 을 담당하는 쓰레드는 `main`
+
+   - Sync와 Async 옵션은 각각 동기와 비동기이며 해당 함수, 클로져가 완료될 때까지 기다릴지 안 기다릴지를 정한다.
+
+   - Image Caching을 이용하여 화면에 나타날 모든 이미지를 다운받을 때까지 기다리지 않고 받은 즉시 화면에 보여주도록 작업하였다.
+
+     - 장점 : 사용자 접근성 향상
+
+   - `URLSession` 를 이용하여 해당 데이터를 받아오는 학습을 하였다.
+
+   - ```swift
+     let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+         guard data != nil, error == nil else {
+         DispatchQueue.main.async {
+           completionHandler(nil, false)
+         }
+         return
+       }
+         let image = UIImage(data: data!)
+         self.cachedImages[imageURL] = image
+                     
+         DispatchQueue.main.async {
+         completionHandler(image, true)
+       }
+     }
+     
+     ```
+
+     
+
+3. *+* 버튼을 생성하고 누를시 DoodleViewController가 나오게 작업하였다.
+
+   - storyboard에서 작업하지 않고, viewController에서 BtnAction을 이용하여서 뷰가 등장하게 작업하였다.
+
+   - ```swift
+     @IBAction func addBtnTouched(_ sender: Any) {
+     
+             let toDoodleVC = UINavigationController(rootViewController: DoodleViewController())
+             present(toDoodleVC, animated: true)
+             
+         }
+     ```
+
+   - 요구사항에 맞는 옵션을 바꾸었다.
+
+     
+
+4. `MVC` 패턴에 대한 추가 학습    
+
+   - 스텝 2까지에 대한 모델을 MVC에 맞게 그룹화 진행작업을 하였다.
+   - `Model` = PHAssets, ImageManager, ImageDownloader, ImageInfoStorage
+   - `View` = PhotoViewCell, Main.StoryBoard
+   - `Controller` = ViewController
+   - `MVC` 패턴으로 나누면서 컨트롤러의 과한 책임을 맡기지 않도록 작업하였다.
+
+
+
+<img src = "https://user-images.githubusercontent.com/52390975/112326069-8d474100-8cf7-11eb-9303-ee338433ae43.gif" width = 200>
+
