@@ -45,7 +45,40 @@ class DoodleViewController : UIViewController{
                                                selector: #selector(didImageDownloadDone(_:)),
                                                name: ImageManager.NotiKeys.imageDownloadDone,
                                                object: imgManager)
+        
+        
+        
     }
+    
+    
+    @objc func longTouchedImgViewCell(_ gesture: UILongPressGestureRecognizer) {        
+        
+        guard let gestureView = gesture.view else {
+            return
+        }
+        
+        let menuController = UIMenuController.shared
+        
+        guard !menuController.isMenuVisible, gestureView.canBecomeFirstResponder else {
+            return
+        }
+        
+        gestureView.becomeFirstResponder()
+        
+        let save = UIMenuItem(title: "Save", action: #selector(saveImageAtCell))
+        menuController.menuItems = [save]
+        
+        if let superView = gestureView.superview {
+            menuController.showMenu(from: superView, rect: gestureView.frame)
+        }
+        
+    }
+    
+    @objc func saveImageAtCell() {
+        //이미지 SAVE 구현하기.
+        print("버튼 눌림")
+    }
+    
     
     @IBAction func addTapped(){
         dismiss(animated: true, completion: nil)
@@ -58,6 +91,9 @@ class DoodleViewController : UIViewController{
             }
         }
     }
+    
+    
+    
 }
 
 extension DoodleViewController : UICollectionViewDelegateFlowLayout {
@@ -74,6 +110,9 @@ extension DoodleViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ImgViewCell
+        
+        cell.isUserInteractionEnabled = true
+        cell.addGestureRecognizer(UILongPressGestureRecognizer.init(target: self, action: #selector(longTouchedImgViewCell(_:))))
         
         let image = imgManager.imageForIndex(indexPath.row)
 
