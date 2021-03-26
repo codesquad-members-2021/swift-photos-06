@@ -120,10 +120,10 @@
 				FAA0DD8B260B133800F9B128 /* View */,
 				FAA0DD8A260B133300F9B128 /* Model */,
 				FA8BDC1626086C9E00F8ADD5 /* AppDelegate.swift */,
-				FA8BDC1826086C9E00F8ADD5 /* SceneDelegate.swift */,
 				FA8BDC1F26086C9F00F8ADD5 /* Assets.xcassets */,
-				FA8BDC2126086C9F00F8ADD5 /* LaunchScreen.storyboard */,
 				FA8BDC2426086C9F00F8ADD5 /* Info.plist */,
+				FA8BDC1826086C9E00F8ADD5 /* SceneDelegate.swift */,
+				FA8BDC2126086C9F00F8ADD5 /* LaunchScreen.storyboard */,
 			);
 			path = PhotoApps;
 			sourceTree = "<group>";
