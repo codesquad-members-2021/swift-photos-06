@@ -53,6 +53,15 @@ extension ViewController: UICollectionViewDataSource {
 
         if let asset = phAsset.photoAssets?[photoIdxToShow] {
             newCell.photoCellImageView.image = getAssetThumbnail(asset: asset)
+            let type = asset.mediaSubtypes
+            if type == .photoLive {
+                
+                let livePhotoImg = UIImage(systemName: "livephoto")
+//                livePhotoImg?.withTintColor(.white)
+                
+                let imageView = UIImageView(image: livePhotoImg)
+                newCell.photoCellImageView.addSubview(imageView)
+            }
         }
         
         return newCell

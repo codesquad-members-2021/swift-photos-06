@@ -13,15 +13,20 @@ class ImageDownloader {
 
     private var cachedImages: [URL: UIImage]
     private var imagesDownloadTasks: [URL: URLSessionDataTask]
-    private let imageDownloadQueue: DispatchQueue
+    private let dictionaryUpdateQueue: DispatchQueue
     
     init() {
         cachedImages = [:]
         imagesDownloadTasks = [:]
-        imageDownloadQueue = DispatchQueue.init(label: "imageDownload")
+        dictionaryUpdateQueue = DispatchQueue(label: "dictionary",
+                                              qos: .userInitiated,
+                                              attributes: .concurrent,
+                                              autoreleaseFrequency: .workItem,
+                                              target: nil)
     }
 
-    func downloadImage(imageURL: URL,
+    func downloadImage(inQueue queue: DispatchQueue,
+                       imageURL: URL,
                        completionHandler: @escaping (UIImage) -> Void,
                        placeholderImage: UIImage) {
         
@@ -35,26 +40,44 @@ class ImageDownloader {
             }
             
             if let data = data, let image = UIImage(data: data) {
-                self.cachedImages[imageURL] = image
+                self.dictionaryUpdateQueue.async(flags: .barrier) {
+                    self.cachedImages[imageURL] = image
+                }
                 completionHandler(image)
             } else {
-                self.cachedImages[imageURL] = placeholderImage
+                self.dictionaryUpdateQueue.async(flags: .barrier) {
+                    self.cachedImages[imageURL] = placeholderImage
+                }
                 completionHandler(placeholderImage)
             }
         }
-
-        imagesDownloadTasks[imageURL] = task
         
-        imageDownloadQueue.async {
+        dictionaryUpdateQueue.async(flags: .barrier) {
+            self.imagesDownloadTasks[imageURL] = task
+        }
+        
+        queue.async {
             task.resume()
         }
     }
 
     func getCachedImageFrom(url: URL) -> UIImage? {
-        return cachedImages[url]
+        var image: UIImage?
+        dictionaryUpdateQueue.sync {
+            image = self.cachedImages[url]
+        }
+        return image
     }
 
     func getDataTaskFrom(url: URL) -> URLSessionTask? {
-        return imagesDownloadTasks[url]
+        var task: URLSessionTask?
+        dictionaryUpdateQueue.sync {
+            task = self.imagesDownloadTasks[url]
+        }
+        return task
     }
 }
+
+
+
+

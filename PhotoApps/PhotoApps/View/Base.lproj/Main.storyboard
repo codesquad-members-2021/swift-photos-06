@@ -68,6 +68,7 @@
                                 <action selector="addBtnTouched:" destination="BYZ-38-t0r" id="gZ5-MD-nSh"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="xeF-uA-yEa"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
