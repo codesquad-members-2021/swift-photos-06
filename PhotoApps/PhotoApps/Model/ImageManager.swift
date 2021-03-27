@@ -14,20 +14,30 @@ class ImageManager {
     private let downloader: ImageDownloader
     private let infoStorage: ImageInfoStorage
     private let imageURLs: [URL]
-    private let backGroundDownloadingQueue: DispatchQueue
+    private let backgroundDownloadQueue: DispatchQueue
+    private let cellInitTimeDownloadQueue: DispatchQueue
     
     init(jsonTitle: String) {
         self.downloader = ImageDownloader()
         self.infoStorage = ImageInfoStorage(jsonTitle: jsonTitle)
         self.imageURLs = infoStorage.imageURLs()
-        backGroundDownloadingQueue = DispatchQueue.init(label: "backgroundImageDownload")
-        startDownloading()
+        self.backgroundDownloadQueue = DispatchQueue(label: "background",
+                                                        qos: .userInitiated,
+                                                        attributes: .concurrent,
+                                                        autoreleaseFrequency: .workItem,
+                                                        target: nil)
+        self.cellInitTimeDownloadQueue = DispatchQueue(label: "cellInitTime",
+                                                       qos: .userInitiated,
+                                                       attributes: .concurrent,
+                                                       autoreleaseFrequency: .workItem,
+                                                       target: nil)
     }
     
-    private func startDownloading() {
+    func startDownloadingAtBackground() {
         imageURLs.forEach { (url) in
-            backGroundDownloadingQueue.async {
-                self.downloader.downloadImage(imageURL: url, completionHandler: { (_) in },
+            backgroundDownloadQueue.sync {
+                self.downloader.downloadImage(inQueue: self.backgroundDownloadQueue,
+                                              imageURL: url, completionHandler: { (_) in },
                                               placeholderImage: UIImage())
             }
         }
@@ -41,7 +51,8 @@ class ImageManager {
         if let image = downloader.getCachedImageFrom(url: imageURLs[index]) { return image }
 
         var imageLoaded = UIImage()
-        downloader.downloadImage(imageURL: imageURLs[index], 
+        downloader.downloadImage(inQueue: self.cellInitTimeDownloadQueue,
+                                 imageURL: imageURLs[index],
                                  completionHandler: { (image) in
                                     imageLoaded = image
                                  },placeholderImage: UIImage())

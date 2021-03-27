@@ -46,9 +46,7 @@ class DoodleViewController : UIViewController{
                                                selector: #selector(didImageDownloadDone(_:)),
                                                name: ImageManager.NotiKeys.imageDownloadDone,
                                                object: imgManager)
-        
-        
-        
+        imgManager.startDownloadingAtBackground()
     }
     
     
@@ -111,9 +109,6 @@ class DoodleViewController : UIViewController{
             }
         }
     }
-    
-    
-    
 }
 
 extension DoodleViewController : UICollectionViewDelegateFlowLayout {
